@@ -1,15 +1,27 @@
 # Software Debouncing
-In previously labs, we talked about how objects such as switches can cause some nasty effects since they are actually a mechanical system at heart. We talked about the simple hardware method of debouncing, but due to the many different design constraints, you may not be able to add or adjust hardware. Debouncing is also only one of many applications which would require the use of built in Timers to allow for other processes to take place.
+This lab focuses on debouncing a button. This can be done by simply delaying the processor until the signal stops bouncing, but this would render our processor useless in the waiting period. To avoid this downtime we will use timers and interupts to tell the processor when to disable the button interupts and then when to reenable the interupts. When looking at a button press on an oscilliscope the time of bounce did not exceed 10 ms so that would be a safe amount of time to set the timer module for. SMCLK about equals 1.25 MHz with a clock divider of 8 1250000/8 = 156250/0x00FF = .0016 or about 1.6 ms
 
-## Task
-You need to utilize the TIMER modules within the MSP430 processors to implement a debounced switch to control the state of an LED. You most likely will want to hook up your buttons on the development boards to an oscilloscope to see how much time it takes for the buttons to settle. The idea here is that your processor should be able to run other code, while relying on timers and interrupts to manage the debouncing in the background. You should not be using polling techniques for this assignment. Your code should also be able to detect 
+## Boards Implemented On:
+* MSP430F5529
+* MSP430FR2311
+* MSP430FR5994
+* MSP430FR6989
+* MSP430G2553
 
-### Hints
-You need to take a look at how the P1IE and P1IES registers work and how to control them within an interrupt routine. Remember that the debouncing is not going to be the main process you are going to run by the end of the lab.
+## Differences On Boards
+### MSP430F5529
+P2.1 is used for the button. P1.0 is the LED toggled when the button is pressed. TimerB0 was used to time the debouncing.
 
-## Extra Work
-### Low Power Modes
-Go into the datasheets or look online for information about the low power modes of your processors and using Energy Trace, see what the lowest power consumption you can achieve while still running your debouncing code. Take a note when your processor is not driving the LED (or unplug the header connecting the LED and check) but running the interrupt routine for your debouncing.
+### MSP430FR2311
+P1.1 is used for the button. P1.0 is the LED toggled when button is pressed. TimerB0 was used to time the debouncing.
 
-### Double the fun
-Can you expand your code to debounce two switches? Do you have to use two Timer peripherals to do this?
+### MSP430FR5994
+P5.6 is used for the button. P1.0 is the LED toggled when button is pressed. TimerA0 was used to time the debouncing.
+
+### MSP430FR6989
+P1.1 is used for the button. P1.0 is the LED toggled when button is pressed. TimerA0 was used to time the debouncing.
+
+### MSP430G2553
+P1.3 is used for the button. P1.0 is the LED toggled when the button is pressed. TimerA0 was used to time the debouncing.
+
+
